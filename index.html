@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Welcome to the CAS Authentication Demo using ExpressJS</h1>
+    <h3>Click on the link below to demonstrate CAS Authentication</h3>
+    <a href="/login">Login with CAS</a></body></br>
+    <!-- no need to logout of the app -> not preserving any data -->
+    <!-- <a href="/logout/app">Log out of the app</a></br> -->
+    <a href="/logout/cas">Log out of the app and end the CAS session</a></br>
+</body>
+<!--
+    This is what we need:
+    An unauthenticated page with Login button
+    Once logged in -> new page with 2 new buttons (logout of app and logout of cas)
+    this would give us redirection back to unauthenticated page with login button
+-->
+</html>
