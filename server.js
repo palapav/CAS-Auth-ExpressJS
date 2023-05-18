@@ -1,9 +1,8 @@
 // convert everything to CommonJS later (standard node syntax)
 
-import express from "express";
-import login from "./endpoints/login.js";
-import logout from "./endpoints/logout.js";
-import { dirname } from "path";
+const express = require("express");
+const login = require("./endpoints/login.js");
+const logout = require("./endpoints/logout.js");
 
 
 const app = express();
@@ -18,7 +17,7 @@ app.use("/logout", logout);
 // switch back to 
 app.get('/', (req, res) => {
   // console.log("I'm here " + dirname("index.html"));
-  res.sendFile("/index.html", {root: "."});
+  res.sendFile(__dirname + "/index.html");
 });
 
 app.get('/login', (req, res) => {

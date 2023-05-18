@@ -1,4 +1,4 @@
-import express from "express";
+const express = require("express");
 // const cas = require("cas");
 const router = express.Router();
 
@@ -22,4 +22,4 @@ router.get("/cas", async (req, res) => {
     // at the end -> clear contents from cookie session
 });
 
-export default router;
+module.exports = router;
