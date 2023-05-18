@@ -1,4 +1,5 @@
 const express = require("express");
+// create typescript declaration file -> once program is done
 const CAS = require("cas");
 const cookieSession = require("cookie-session");
 const router = express.Router();
@@ -11,7 +12,7 @@ const router = express.Router();
 const PORT = process.env.PORT || 3000;
 // may need to modularize above line of code
 
-const CAS_URL = "https://fed.princeton.edu/cas/";
+const CAS_URL = "https://fed.princeton.edu/cas";
 const BASE_LOGIN_URL = `http://localhost:${PORT}/login/verify`;
 let cas = new CAS({base_url: CAS_URL, service: BASE_LOGIN_URL});
 
@@ -34,7 +35,7 @@ router.get("/cas", async (req, res) => {
     // in one state of the application
 
 
-    res.redirect(CAS_URL + 'login?service=' + BASE_LOGIN_URL);
+    res.redirect(CAS_URL + '/login?service=' + BASE_LOGIN_URL);
     // if we don't define the next route -> it would just go the next sequence in the endpoints
     // at the end we can send a valid username to the frontend or some other error value
     // res.sendStatus(200);
