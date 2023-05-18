@@ -7,10 +7,12 @@ import { dirname } from "path";
 
 
 const app = express();
-const port = 3001;
+const port = process.env.PORT || 3000;
+
+// not using middleware here -> check to see if we need to
 
 // defining routes
-app.use("/", login);
+app.use("/login", login);
 app.use("/logout", logout);
 
 // switch back to 
