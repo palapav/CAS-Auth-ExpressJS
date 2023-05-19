@@ -1,3 +1,4 @@
+<!--authenticated.ejs (Authenticated interface)-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,14 +8,14 @@
     <title>Document</title>
 </head>
 <body>
-    <!-- need to add a jquery script to get the username from the server side-->
     <h1>Hello, <%= netid %>!</h1>
 
     <h2>You are successfully authenticated via CAS Authentication!</h2>
 
+    <!-- available links -->
     <div style="font-family: Arial, Helvetica, sans-serif;">
-    <a href="/logout/app">Log out of the app</a></br>
-    <a href="/logout/cas">Log out of the app and end the CAS session</a></br>
+        <a href="/logout/app">Log out of the app</a></br>
+        <a href="/logout/cas">Log out of the app and end the CAS session</a></br>
     </div>
 
 </body>

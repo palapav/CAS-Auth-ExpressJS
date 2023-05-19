@@ -1,17 +1,24 @@
+/* 
+login.js
+Author: Aditya Palaparthi
+*/
+
+// imported packages
 const express = require("express");
 const CAS = require("cas");
 require("cookie-session");
+
 const router = express.Router();
-
 const PORT = process.env.PORT || 3000;
-
 const CAS_URL = "https://fed.princeton.edu/cas";
 const BASE_LOGIN_URL = `http://localhost:${PORT}/login/verify`;
+
 // initializing the CAS service to be used in ticket validation
 let cas = new CAS({base_url: CAS_URL, service: BASE_LOGIN_URL});
 
 
-// redirects user to Princeton's CAS server
+
+// redirects user to Princeton's CAS server in first step of authentication
 router.get("/cas", async (req, res) => {
     try {
         res.redirect(CAS_URL + '/login?service=' + BASE_LOGIN_URL);

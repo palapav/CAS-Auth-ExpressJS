@@ -1,5 +1,9 @@
-// convert everything to CommonJS later (standard node syntax)
+/*
+server.js
+Author: Aditya Palaparthi
+*/
 
+// importing necessary packages
 const express = require("express");
 let cookies = require("cookie-session");
 const login = require("./endpoints/login.js");
@@ -7,10 +11,11 @@ const logout = require("./endpoints/logout.js");
 
 
 const app = express();
+// allows for ejs template engine to integrate with Express
+// used in login endpoints and authenticated.ejs
 app.set("view engine", "ejs");
 const port = process.env.PORT || 3000;
 
-// not using middleware here -> check to see if we need to
 app.use(cookies({
   name: "session",
   /* 
@@ -26,17 +31,18 @@ app.use(cookies({
   keys: ['SECRET_SIGN_KEY', 'SECRET_VERIFY_KEY']
 }));
 
-// may need to enable cors here in a deployed/more sophisticated server
-
+// may need to enable an Express CORS package
+// here in a deployed/more sophisticated server
 
 // defining routes
 app.use("/login", login);
 app.use("/logout", logout);
 
-// switch back to 
+// Renders authenticated or welcome page depending on whether
+// user is logged in
 app.get('/', (req, res) => {
   if (req.session.cas) {
-    console.log("I shouldn't be here because I logged out of the app");
+    // cas cookie session still active (user never logged out)
     const netid = req.session.cas.netid;
     res.render("authenticated", {netid: netid});
     return;
@@ -45,7 +51,7 @@ app.get('/', (req, res) => {
   res.sendFile(__dirname + "/index.html");
 });
 
-
+// highest level of server side error handling
 app.use((err, _req, res, next) => {
   console.log(err);
   res.status(500).send("Uh oh! An unexpected error occured.")

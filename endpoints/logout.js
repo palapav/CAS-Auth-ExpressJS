@@ -1,3 +1,9 @@
+/* 
+logout.js
+Author: Aditya Palaparthi
+*/
+
+// importing necessary packages
 const express = require("express");
 require("cookie-session");
 const router = express.Router();
@@ -6,11 +12,12 @@ const PORT = process.env.PORT || 3000;
 const CAS_URL = "https://fed.princeton.edu/cas/";
 const BASE_LOGOUT_URL = `http://localhost:${PORT}`;
 
-// some helper functions here
 
-// Logs out of the application
+// Logs out of only the application (deletes session data
+// and ticket revalidation needed upon logging in)
 router.get("/app", async (req, res) => {
     try {
+        // delete cookie session data
         req.session = null;
         res.sendFile("loggedout.html", {root: "."});
     }
@@ -20,9 +27,11 @@ router.get("/app", async (req, res) => {
     }
 });
 
-// Logs out of the application and CAS session
+// Logs out of the application and CAS session (need to 
+// authenticate with Princeton CAS server upon logging in)
 router.get("/cas", async (req, res) => {
     try {
+        // delete cookie session data
         req.session = null;
         res.redirect(CAS_URL + "logout?service=" +  BASE_LOGOUT_URL + "/logout/display");
     }
@@ -32,7 +41,8 @@ router.get("/cas", async (req, res) => {
     }
 });
 
-// Rendered html page (loggedoutcas.html)
+// Rendered html page (loggedoutcas.html) for logging out of app & CAS
+// upon receiving logout reply from Princeton's CAS server
 router.get("/display", async(req, res) => {
     try {
         res.sendFile("loggedoutcas.html", {root: "."});
