@@ -8,10 +8,10 @@ const express = require("express");
 require("cookie-session");
 const verifyPort = require("../argparser");
 const PORT = verifyPort(process.argv[2]);
+
 const router = express.Router();
 const CAS_URL = "https://fed.princeton.edu/cas/";
 const BASE_LOGOUT_URL = `http://localhost:${PORT}`;
-
 
 // Logs out of only the application (deletes session data
 // and ticket revalidation needed upon logging in)

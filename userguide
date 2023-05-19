@@ -29,9 +29,9 @@ navigated to CAS-Auth-ExpressJS from the terminal within your favorite
 code editor or IDE. If you have NodeJS with NPM already installed on your
 computer, proceed to step 5. If not, proceed to step 4.
 
-4. Navigate to the following URL and follow the instructions to donwload
+4. Navigate to the following URL and follow the instructions to download
 and install Node.js and npm (node package manager) on your computer. This is essential for being able to start up the server. Once you have installed
-the tools on your computer, verify they are installed by running the following commands in the terminal in your editor/IDE; "$ node -v" and "$ npm -v". Proceed to step 5 once you have verified that you have Node.js and npm installed on your computer.
+the tools on your computer, verify they are installed by running the following commands in the terminal in your editor/IDE: "$ node -v" and "$ npm -v". Proceed to step 5 once you have verified that you have Node.js and npm installed on your computer.
 
 5. At this point, you should have the terminal opened within
 your editor/IDE and the root of the project directory should be displayed
@@ -39,11 +39,11 @@ as "CAS-Auth-ExpressJS". You should also have installed and verified NodeJS
 and npm by now. Go ahead and run the following command "npm install" in the terminal. This should now have added a folder called "node_modules" and a package-lock.json file at the root of the project directory. Verify this folder and file have been added to the project directory by typing in 
 the ls command in the terminal. Once verified, proceed to step 6 to startup the express server.
 
-6. From the terminal, write the following command: "npm start 3000". This will launch the express server. If you would like to make changes to the server-side code and have them be dynamically rendered without killing and restarting the server, run the following command instead: "npm run dev 3000". In either case, you will see a console log message in the terminal telling you that you server is listening at port 3000. If the server crashes because you have another process running at port 3000, use a different port and proceed to step 7 using that port number.
+6. From the terminal, write the following command: "npm start 3000". This will launch the express server. If you would like to make changes to the server-side code and have them be dynamically rendered without manually killing and restarting the server, run the following command instead: "npm run dev 3000". In either case, you will see a console log message in the terminal telling you that you server is listening at port 3000. If the server crashes because you have another process running at port 3000, use a different port and proceed to step 7 using that port number.
 Proceed to step 7.
 
 7. Launch your favorite browser (Safari, Chrome, Firefox, etc.), and
-type the following URL in the search bar at the very top: "localhost:3000".If you running the server on a different port, include
+type the following URL in the search bar at the very top: "localhost:3000".If you are running the server on a different port, include
 that port number. Once navigated to the URL, you should see the text
 in big, bold letters at the top say "Welcome to the CAS Authentication
 Demo using ExpressJS". Proceed to use case 1 below.
@@ -52,7 +52,7 @@ Demo using ExpressJS". Proceed to use case 1 below.
 Use Case 1: User logs in with Princeton CAS
 
 1. You should now be on the welcome page of the application. You should
-see the following title in big bold letters: "Welcome to CAS Authentication Demo using ExpressJS". Click on the blue link that
+see the following title in big bold letters: "Welcome to the CAS Authentication Demo using ExpressJS". Click on the blue link that
 says "Login with CAS". Since this is your first time logging into this
 CAS demo application, you will be redirected to Princeton's CAS Authentication website. Upon redirection, insert your netid XYZ and password WYZ. Upon completion, click on the Login button. If you are routed
 to any DUO-Two-Factor Authentication, please complete the two-factor
@@ -68,9 +68,9 @@ Use Case 2: User logs out of the app
 
 1. We are still in the authenticated interface of the demo application. Go ahead and click on the link titled "Log out of the app". Once the clicking is done, you will now see the heading in big bold text titled: "You have
 been successfully logged out of the app". Proceed to step 2.
-2. You have 3 options now to click on the "Welcome page", "Login with CAS", and "Log out of the app and end the CAS session". Let's go ahead and click on the "Welcome page". Once routed to the Welcome page (unauthenticated interface titled "Welcome to the CAS Authentication Demo using ExpressJS"), go ahead and click "Login with CAS". Because your session data is still present, you will automatically be taken to the authenticated interface (post ticket-revalidation). This is faster than the logging out of the app and ending the Princeton CAS session, but it is not a complete log out of the application. You should now see in a big bold heading at the top of your screen "Hello, XYZ!" where XYZ is your Princeton netid. Proceed to use case 3.
+2. You have 3 options now: to click on the "Welcome page", "Login with CAS", and "Log out of the app and end the CAS session". Let's go ahead and click on the "Welcome page". Once routed to the Welcome page (unauthenticated interface titled "Welcome to the CAS Authentication Demo using ExpressJS"), go ahead and click "Login with CAS". Because your session data is still present, you will automatically be taken to the authenticated interface (after ticket-revalidation is completed). This is faster than the logging out of the app and ending the Princeton CAS session, but it is not a complete log out of the application. You should now see in a big bold heading at the top of your screen "Hello, XYZ!" where XYZ is your Princeton netid. Proceed to use case 3.
 
-Use Case 3: User logs out of the app and end the Princeton CAS session
+Use Case 3: User logs out of the app and ends the Princeton CAS session
 
 1. We are still in the authenticated interface of the demo application. Proceed to step 2.
 2. Now, click on the link "Log out of the app and end the CAS session". Upon clicking, you will be taken to a webpage titled "You have been
@@ -88,4 +88,4 @@ your Princeton netid. Proceed to step 5.
 Additional Functionality Not Demonstrated:
 
 If you never log out of the application and close out of the website
-but keep the server running, if you enter open up the website again, the authenticated interface will automatically show up because your session data is still present.
+and keep the server running, the authenticated interface will automatically show up because your session data is still present upon entering the website link: "localhost:3000" (3000 or your own port number).
