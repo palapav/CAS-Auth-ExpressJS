@@ -8,13 +8,17 @@ const express = require("express");
 let cookies = require("cookie-session");
 const login = require("./endpoints/login.js");
 const logout = require("./endpoints/logout.js");
+const verifyPort = require("./argparser.js");
 
 
 const app = express();
 // allows for ejs template engine to integrate with Express
 // used in login endpoints and authenticated.ejs
 app.set("view engine", "ejs");
-const port = process.env.PORT || 3000;
+
+// process.argv[2] represents the port argument inserted by user
+// in command line
+const port = verifyPort(process.argv[2]);
 
 app.use(cookies({
   name: "session",
@@ -58,5 +62,5 @@ app.use((err, _req, res, next) => {
 })
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
+  console.log(`Server listening on port ${port}`)
 });

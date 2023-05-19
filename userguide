@@ -3,4 +3,58 @@ CAS-Auth-ExpressJS
 Author: Aditya Palaparthi
 Credits: Dr. Dondero
 
-This repository is an implementation
+Hello,
+Thank you for reading the user guide! I will try to be as detailed as possible.
+
+This repository is an implementation of CAS Authentication (hardcoded for Princeton University but can be adaptable to any university) using
+NodeJS (JavaScript server environment), ExpressJS (NodeJS web app framework), and minimal use of EJS (JavaScript template engine) and
+plain HTML. The following text will outline how to make the most of the
+repository.
+
+Setting Up the Express Server:
+
+Note: If you already have a copy of the unzipped files, proceed
+to step 2.
+1. If you do not have a copy of the files downloaded to your computer already, please navigate to the following URL: https://github.com/palapav/CAS-Auth-ExpressJS. Once you have navigated to this github repository,
+please select the green Code button. A dropdown menu will appear. Please
+click on the "Download ZIP" section. A zip folder will now be on the hard drive on your computer (Possibly in the Downloads section). Unzip the folder if it is not already unzipped. Proceed to step 2.
+
+2. Now that you have a copy of the unzipped repository files on your
+computer's hard drive, go ahead and open the folder "CAS-Auth-ExpressJS"
+in your favorite code editor or IDE (VSCode, Vim, etc. (please download if you do not have one)). Proceed to step 3.
+
+3. Now that you have the folder contents of "CAS-Auth-ExpressJS" displayed
+in your favorite code editor or IDE, open up the terminal from within your favorite editor or IDE. This is so that your directory path is already
+navigated to CAS-Auth-ExpressJS from the terminal within your favorite
+code editor or IDE. If you have NodeJS with NPM already installed on your
+computer, proceed to step 5. If not, proceed to step 4.
+
+4. Navigate to the following URL and follow the instructions to donwload
+and install Node.js and npm (node package manager) on your computer. This is essential for being able to start up the server. Once you have installed
+the tools on your computer, verify they are installed by running the following commands in the terminal in your editor/IDE; "$ node -v" and "$ npm -v". Proceed to step 5 once you have verified that you have Node.js and npm installed on your computer.
+
+5. At this point, you should have the terminal opened within
+your editor/IDE and the root of the project directory should be displayed
+as "CAS-Auth-ExpressJS". You should also have installed and verified NodeJS
+and npm by now. Go ahead and run the following command "npm install" in the terminal. This should now have added a folder called "node_modules" and a package-lock.json file at the root of the project directory. Verify this folder and file have been added to the project directory by typing in 
+the ls command in the terminal. Once verified, proceed to step 6 to startup the express server.
+
+6. From the terminal, write the following command: "npm start". This will launch the express server. If you would like to make changes to the server-side code and have them be dynamically rendered without killing and restarting the server, run the following command instead: "npm run dev".
+In either case, you will see a console log message in the terminal telling
+you that you server is listening at port 3000. If the server crashes because you have another process running at port 3000
+Proceed to step 7.
+
+7. Launch your favorite browser (Safari, Chrome, Firefox, etc.), and
+type the following URL in the search bar at the very top: "localhost:3000". If you running the server on a different port, include
+that port number. Once navigated to the URL, you should see the text
+in big, bold letters at the top say "Welcome to the CAS Authentication
+Demo using ExpressJS". Proceed to use case 1 below.
+
+
+Use Case 1: User logs in with Princeton CAS
+
+1. You should now be on the welcome page
+
+Use Case 2: User logs out of the app
+
+Use Case 3: User logs out of the app and end the Princeton CAS session

@@ -3,13 +3,14 @@ login.js
 Author: Aditya Palaparthi
 */
 
-// imported packages
+// imported packages & values
 const express = require("express");
 const CAS = require("cas");
 require("cookie-session");
+const verifyPort = require("../argparser");
+const PORT = verifyPort(process.argv[2]);
 
 const router = express.Router();
-const PORT = process.env.PORT || 3000;
 const CAS_URL = "https://fed.princeton.edu/cas";
 const BASE_LOGIN_URL = `http://localhost:${PORT}/login/verify`;
 
