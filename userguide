@@ -39,13 +39,11 @@ as "CAS-Auth-ExpressJS". You should also have installed and verified NodeJS
 and npm by now. Go ahead and run the following command "npm install" in the terminal. This should now have added a folder called "node_modules" and a package-lock.json file at the root of the project directory. Verify this folder and file have been added to the project directory by typing in 
 the ls command in the terminal. Once verified, proceed to step 6 to startup the express server.
 
-6. From the terminal, write the following command: "npm start". This will launch the express server. If you would like to make changes to the server-side code and have them be dynamically rendered without killing and restarting the server, run the following command instead: "npm run dev".
-In either case, you will see a console log message in the terminal telling
-you that you server is listening at port 3000. If the server crashes because you have another process running at port 3000
+6. From the terminal, write the following command: "npm start 3000". This will launch the express server. If you would like to make changes to the server-side code and have them be dynamically rendered without killing and restarting the server, run the following command instead: "npm run dev 3000". In either case, you will see a console log message in the terminal telling you that you server is listening at port 3000. If the server crashes because you have another process running at port 3000, use a different port and proceed to step 7 using that port number.
 Proceed to step 7.
 
 7. Launch your favorite browser (Safari, Chrome, Firefox, etc.), and
-type the following URL in the search bar at the very top: "localhost:3000". If you running the server on a different port, include
+type the following URL in the search bar at the very top: "localhost:3000".If you running the server on a different port, include
 that port number. Once navigated to the URL, you should see the text
 in big, bold letters at the top say "Welcome to the CAS Authentication
 Demo using ExpressJS". Proceed to use case 1 below.
@@ -53,8 +51,41 @@ Demo using ExpressJS". Proceed to use case 1 below.
 
 Use Case 1: User logs in with Princeton CAS
 
-1. You should now be on the welcome page
+1. You should now be on the welcome page of the application. You should
+see the following title in big bold letters: "Welcome to CAS Authentication Demo using ExpressJS". Click on the blue link that
+says "Login with CAS". Since this is your first time logging into this
+CAS demo application, you will be redirected to Princeton's CAS Authentication website. Upon redirection, insert your netid XYZ and password WYZ. Upon completion, click on the Login button. If you are routed
+to any DUO-Two-Factor Authentication, please complete the two-factor
+authentication on your mobile device and click "trust the browser" on the popup DUO message box on your browser. Upon successful authentication,
+your demo application should now say "Hello, XYZ" where XYZ represents
+your Princeton netid. Proceed to step 2.
+
+2. We are still in the authenticated interface of the demo application.
+We know this because your netid is displayed on the screen and the bold
+text saying that "You are successfully authenticated via CAS Authentication". You are now given 2 links on this page: "Log out of the app" and "Log out of the app and end the CAS session". In the backend, "Log out of the app" simply deletes any session data stored during your browsing. Since you haven't logged out of your active Princeton CAS session yet, you still have a ticket; however, when you log back into the system, you will need to revalidate your ticket. There is no need to enter username and password for Princeton CAS again. On the other hand, logging out of the app and ending the CAS session deletes both your session data and CAS session, which means you will have to complete the entire authentication process again to generate a new ticket. Proceed to use case 2 where we just log out of the app.
 
 Use Case 2: User logs out of the app
 
+1. We are still in the authenticated interface of the demo application. Go ahead and click on the link titled "Log out of the app". Once the clicking is done, you will now see the heading in big bold text titled: "You have
+been successfully logged out of the app". Proceed to step 2.
+2. You have 3 options now to click on the "Welcome page", "Login with CAS", and "Log out of the app and end the CAS session". Let's go ahead and click on the "Welcome page". Once routed to the Welcome page (unauthenticated interface titled "Welcome to the CAS Authentication Demo using ExpressJS"), go ahead and click "Login with CAS". Because your session data is still present, you will automatically be taken to the authenticated interface (post ticket-revalidation). This is faster than the logging out of the app and ending the Princeton CAS session, but it is not a complete log out of the application. You should now see in a big bold heading at the top of your screen "Hello, XYZ!" where XYZ is your Princeton netid. Proceed to use case 3.
+
 Use Case 3: User logs out of the app and end the Princeton CAS session
+
+1. We are still in the authenticated interface of the demo application. Proceed to step 2.
+2. Now, click on the link "Log out of the app and end the CAS session". Upon clicking, you will be taken to a webpage titled "You have been
+successfully logged out of the app and CAS!". Proceed to step 3.
+3. We are picking off from the same state of the application as the
+end of the previous step. Now, to demonstrate the idea that we have been
+fully unauthenticated from the system, let's go ahead and click on the "Login with CAS" link. We should now be redirected to Princeton's CAS login website. Proceed to step 4.
+4.  Upon landing on Princeton's CAS login website, insert your netid XYZ and password WYZ. Upon completion, click on the Login button. If you are routed to any DUO-Two-Factor Authentication, please complete the two-factor
+authentication on your mobile device and click "trust the browser" on the popup DUO message box on your browser. Upon successful authentication,
+your demo application should now say "Hello, XYZ!" where XYZ represents
+your Princeton netid. Proceed to step 5.
+5. This is the end of the detailed userguide. Thank you for participating!
+
+
+Additional Functionality Not Demonstrated:
+
+If you never log out of the application and close out of the website
+but keep the server running, if you enter open up the website again, the authenticated interface will automatically show up because your session data is still present.
