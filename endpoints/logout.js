@@ -31,10 +31,10 @@ router.get("/app", async (req, res) => {
 router.get("/cas", async (req, res) => {
     // try catch block
     console.log("I'm in the logout/cas endpoint");
-    req.session = null;
-    console.log("Cookie-session" + JSON.stringify(req.session));
+    console.log("Cookie-session: " + JSON.stringify(req.session));
     // req.casSession = null;
     // we should have it redirect to logout page with button to homepage
+    req.session = null;
     res.redirect(CAS_URL + "logout?service=" +  BASE_LOGOUT_URL);
     res.status(200);
     return;

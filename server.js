@@ -7,6 +7,7 @@ const logout = require("./endpoints/logout.js");
 
 
 const app = express();
+app.set("view engine", "ejs");
 const port = process.env.PORT || 3000;
 
 // not using middleware here -> check to see if we need to
@@ -34,11 +35,6 @@ app.use("/logout", logout);
 app.get('/', (req, res) => {
   // console.log("I'm here " + dirname("index.html"));
   res.sendFile(__dirname + "/index.html");
-});
-
-app.get('/login', (req, res) => {
-  res.send("This is the authenticated interface" +
-   "that displays your username")
 });
 
 app.get('/logout/cas', (req, res) => {

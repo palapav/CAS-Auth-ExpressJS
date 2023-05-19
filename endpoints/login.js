@@ -40,16 +40,23 @@ router.get("/cas", async (req, res) => {
 
 router.get("/verify", async (req, res) => {
     console.log("I'm in the /login/verify endpoint'");
-    const ticket = req.query.ticket;
 
+    const cookieSession = req.session.cookieSession;
+    console.log("cookieSession value: " + JSON.stringify(cookieSession));
+    // skip ticket validation process -> ticket already validated
+    if (cookieSession) {
+        // res.render here!
+        // res.send({netid: cookieSession.netid}).status(200);
+        res.render("authenticated", {netid: cookieSession.netid});
+        return;
+    }
+
+    const ticket = req.query.ticket;
     if (typeof(ticket) === undefined) {
         // redirect to unauthenticated interface (welcome screen withn no username)
         // bolster this later
+        // send an error message
         res.redirect("/");
-    }
-
-    if (req.session.casSession) {
-
     }
 
     else {
@@ -63,19 +70,21 @@ router.get("/verify", async (req, res) => {
             if (err) {
                 // handles error in case ticket is invalidated
                 // add status error
-                console.log(JSON.stringify(err));
+                console.log("Error in cas valiadtion: " + JSON.stringify(err));
                 res.send({error: err}).status(500);
                 return;
             }
             console.log("This is my username post ticket valid: " + netid);
             // log the user in (extract authenticated username)
             // no need for netid to be stored in cookies -> only ticket (between many states)
-            req.session.casSession = {
+            req.session.cookieSession = {
                 ticket: ticket,
-                username: netid
+                netid: netid
             };
             console.log("Cookie-session" + JSON.stringify(req.session));
-            res.send({status: status, netid: netid}).status(200);
+            // res.render here!
+            // res.send({status: status, netid: netid}).status(200);
+            res.render("authenticated", {netid: netid});
         });
     }
 });
