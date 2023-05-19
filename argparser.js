@@ -1,5 +1,3 @@
-const express = require("express");
-
 // verifies the port number is an integer value
 // prior to listening at the port
 function verifyPort() {
