@@ -41,13 +41,13 @@ router.get("/cas", async (req, res) => {
 router.get("/verify", async (req, res) => {
     console.log("I'm in the /login/verify endpoint'");
 
-    const cookieSession = req.session.cookieSession;
-    console.log("cookieSession value: " + JSON.stringify(cookieSession));
+    const activeSession = req.session.cas;
     // skip ticket validation process -> ticket already validated
-    if (cookieSession) {
+
+    if (activeSession) {
         // res.render here!
         // res.send({netid: cookieSession.netid}).status(200);
-        res.render("authenticated", {netid: cookieSession.netid});
+        res.render("authenticated", {netid: activeSession.netid});
         return;
     }
 
@@ -66,22 +66,19 @@ router.get("/verify", async (req, res) => {
         // may modularize later after cookie storage
         // ticket validation here!
         await cas.validate(ticket, function(err, status, netid) {
-            console.log("netid: " + netid);
             if (err) {
                 // handles error in case ticket is invalidated
                 // add status error
-                console.log("Error in cas valiadtion: " + JSON.stringify(err));
+                console.log("Error in cas validation: " + JSON.stringify(err));
                 res.send({error: err}).status(500);
                 return;
             }
-            console.log("This is my username post ticket valid: " + netid);
             // log the user in (extract authenticated username)
             // no need for netid to be stored in cookies -> only ticket (between many states)
-            req.session.cookieSession = {
+            req.session.cas = {
                 ticket: ticket,
                 netid: netid
             };
-            console.log("Cookie-session" + JSON.stringify(req.session));
             // res.render here!
             // res.send({status: status, netid: netid}).status(200);
             res.render("authenticated", {netid: netid});

@@ -1,7 +1,7 @@
 // convert everything to CommonJS later (standard node syntax)
 
 const express = require("express");
-let cookieSession = require("cookie-session");
+let cookies = require("cookie-session");
 const login = require("./endpoints/login.js");
 const logout = require("./endpoints/logout.js");
 
@@ -11,7 +11,7 @@ app.set("view engine", "ejs");
 const port = process.env.PORT || 3000;
 
 // not using middleware here -> check to see if we need to
-app.use(cookieSession({
+app.use(cookies({
   name: "session",
   /* 
   NOTE:
@@ -26,6 +26,8 @@ app.use(cookieSession({
   keys: ['SECRET_SIGN_KEY', 'SECRET_VERIFY_KEY']
 }));
 
+// may need to enable cors here in a deployed/more sophisticated server
+
 
 // defining routes
 app.use("/login", login);
@@ -33,7 +35,13 @@ app.use("/logout", logout);
 
 // switch back to 
 app.get('/', (req, res) => {
-  // console.log("I'm here " + dirname("index.html"));
+  if (req.session.cas) {
+    console.log("I shouldn't be here because I logged out of the app");
+    const netid = req.session.cas.netid;
+    res.render("authenticated", {netid: netid});
+    return;
+  }
+
   res.sendFile(__dirname + "/index.html");
 });
 

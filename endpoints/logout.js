@@ -30,7 +30,6 @@ router.get("/app", async (req, res) => {
 router.get("/cas", async (req, res) => {
     // try catch block
     console.log("I'm in the logout/cas endpoint");
-    console.log("Cookie-session: " + JSON.stringify(req.session));
     req.session = null;
     res.redirect(CAS_URL + "logout?service=" +  BASE_LOGOUT_URL + "/logout/display");
     res.status(200);
