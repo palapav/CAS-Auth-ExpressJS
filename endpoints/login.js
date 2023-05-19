@@ -1,7 +1,7 @@
 const express = require("express");
 // create typescript declaration file -> once program is done
 const CAS = require("cas");
-const cookieSession = require("cookie-session");
+require("cookie-session");
 const router = express.Router();
 
 
@@ -12,14 +12,10 @@ const router = express.Router();
 const PORT = process.env.PORT || 3000;
 // may need to modularize above line of code
 
+// removed last slash mark at end of CAS_URL
 const CAS_URL = "https://fed.princeton.edu/cas";
 const BASE_LOGIN_URL = `http://localhost:${PORT}/login/verify`;
 let cas = new CAS({base_url: CAS_URL, service: BASE_LOGIN_URL});
-
-// stripping ticket function -> no need for ticket stripping (express -> extracted from url)
-function stripTicket(url) {
-
-}
 
 
 // redirects user to Princeton's CAS server
@@ -33,17 +29,14 @@ router.get("/cas", async (req, res) => {
 
     // also no need to store username in cookies -> just ticket -> username only rendered
     // in one state of the application
-
-
+    
+    // this does the automatic logging in for me if needed
     res.redirect(CAS_URL + '/login?service=' + BASE_LOGIN_URL);
     // if we don't define the next route -> it would just go the next sequence in the endpoints
-    // at the end we can send a valid username to the frontend or some other error value
-    // res.sendStatus(200);
-    // you can send a different html file + requested parameters
-    console.log("Will this ever be read?")
-    // res.send("This is the authenticated interface" +
-    // " that displays your username").status(200);
+    return;
 });
+
+
 
 router.get("/verify", async (req, res) => {
     console.log("I'm in the /login/verify endpoint'");
@@ -54,11 +47,17 @@ router.get("/verify", async (req, res) => {
         // bolster this later
         res.redirect("/");
     }
+
+    if (req.session.casSession) {
+
+    }
+
     else {
         // we are ready to validate the ticket
         console.log("This is my ticket yay: " + ticket);
+        
+        // may modularize later after cookie storage
         // ticket validation here!
-
         await cas.validate(ticket, function(err, status, netid) {
             console.log("netid: " + netid);
             if (err) {
@@ -68,11 +67,15 @@ router.get("/verify", async (req, res) => {
                 res.send({error: err}).status(500);
                 return;
             }
-            else {
-                console.log("This is my username post ticket valid: " + netid);
-                // log the user in (extract authenticated username)
-                res.send({status: status, netid: netid}).status(200);
-            }
+            console.log("This is my username post ticket valid: " + netid);
+            // log the user in (extract authenticated username)
+            // no need for netid to be stored in cookies -> only ticket (between many states)
+            req.session.casSession = {
+                ticket: ticket,
+                username: netid
+            };
+            console.log("Cookie-session" + JSON.stringify(req.session));
+            res.send({status: status, netid: netid}).status(200);
         });
     }
 });
