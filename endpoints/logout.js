@@ -1,42 +1,46 @@
 const express = require("express");
 require("cookie-session");
-// const cas = require("cas");
 const router = express.Router();
 
-// may need to modularize variable names in a separate backend file
-// where all files have access to them
-
 const PORT = process.env.PORT || 3000;
-// may need to modularize above line of code
-
-// removed last slash mark at end of CAS_URL
 const CAS_URL = "https://fed.princeton.edu/cas/";
 const BASE_LOGOUT_URL = `http://localhost:${PORT}`;
-// maybe have it take you back to a logout page
 
 // some helper functions here
 
-// logout of the app
+// Logs out of the application
 router.get("/app", async (req, res) => {
-    // try catch block
-    console.log("I'm in the logout/app endpoint");
-
-    req.session = null;
-    // at the end we can send a valid username to the frontend or some other error value
-    res.sendFile("loggedout.html", {root: "."});
+    try {
+        req.session = null;
+        res.sendFile("loggedout.html", {root: "."});
+    }
+    catch(error) {
+        console.log(error);
+        res.status(500).send("Server error in logging out of app!");
+    }
 });
 
-// logout of app + cas
+// Logs out of the application and CAS session
 router.get("/cas", async (req, res) => {
-    // try catch block
-    console.log("I'm in the logout/cas endpoint");
-    req.session = null;
-    res.redirect(CAS_URL + "logout?service=" +  BASE_LOGOUT_URL + "/logout/display");
-    res.status(200);
+    try {
+        req.session = null;
+        res.redirect(CAS_URL + "logout?service=" +  BASE_LOGOUT_URL + "/logout/display");
+    }
+    catch(error) {
+        console.log(error);
+        res.status(500).send("Server error in logging out of app & CAS!");
+    }
 });
 
+// Rendered html page (loggedoutcas.html)
 router.get("/display", async(req, res) => {
-    res.sendFile("loggedoutcas.html", {root: "."});
+    try {
+        res.sendFile("loggedoutcas.html", {root: "."});
+    }
+    catch(error) {
+        console.log(error);
+        res.status(500).send("Server error in logging out of app & CAS!");
+    }
 });
 
 module.exports = router;

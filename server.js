@@ -45,13 +45,6 @@ app.get('/', (req, res) => {
   res.sendFile(__dirname + "/index.html");
 });
 
-app.get('/logout/cas', (req, res) => {
-  res.send("You have been logged out of CAS and the app")
-});
-
-// need cors?
-
-
 
 app.use((err, _req, res, next) => {
   console.log(err);
