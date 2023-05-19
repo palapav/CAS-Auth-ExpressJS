@@ -9,20 +9,14 @@
 <body>
     <h1>Welcome to the CAS Authentication Demo using ExpressJS</h1>
     <h3>Click on the link below to demonstrate CAS Authentication</h3>
-    <!-- with href -> we move to our desired page 
-    Within that page we have a javascript call (we can keep this at the beginning)
-    do all our authentication -> prior to showing the page -> then we will get a username
-    or some propagated error-->
+
     <a href="/login/cas">Login with CAS</a></body></br>
-    <!-- no need to logout of the app -> not preserving any data -->
-    <!--redoes ticket validation -->
     <a href="/logout/app">Log out of the app</a></br>
     <a href="/logout/cas">Log out of the app and end the CAS session</a></br>
+    </br>
+
+    <h3>Note: Just logging out of the app will keep your CAS session active; however,
+        your app session data will be cleared and revalidation of your CAS ticket will be needed.
+    </h3>
 </body>
-<!--
-    This is what we need:
-    An unauthenticated page with Login button
-    Once logged in -> new page with 2 new buttons (logout of app and logout of cas)
-    this would give us redirection back to unauthenticated page with login button
--->
 </html>
