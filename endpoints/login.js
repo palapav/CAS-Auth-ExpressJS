@@ -5,6 +5,7 @@ Author: Aditya Palaparthi
 
 // imported packages & values
 const express = require("express");
+const axios = require("axios");
 const CAS = require("cas");
 require("cookie-session");
 const verifyPort = require("../argparser");
@@ -12,7 +13,8 @@ const PORT = verifyPort(process.argv[2]);
 
 const router = express.Router();
 const CAS_URL = "https://fed.princeton.edu/cas";
-const BASE_LOGIN_URL = `http://localhost:${PORT}/login/verify`;
+const BASE_URL = `http://localhost:${PORT}`;
+const BASE_LOGIN_URL = BASE_URL + `/login/verify`;
 
 // initializing the CAS service to be used in ticket validation
 let cas = new CAS({base_url: CAS_URL, service: BASE_LOGIN_URL});
@@ -47,22 +49,31 @@ router.get("/verify", async (req, res) => {
             res.redirect("/");
         }
         else {
-            await cas.validate(ticket, function(err, status, netid) {
-                if (err) {
-                    // error handling for invalid tickets
-                    console.log("Error in cas validation: " + JSON.stringify(err));
-                    res.send({error: err}).status(500);
-                    return;
-                }
-                // add new cookie session data of ticket and netid (encrypted)
-                req.session.cas = {
-                    ticket: ticket,
-                    netid: netid
-                };
+            val_url = CAS_URL + "/validate?service=" + BASE_URL + "/&ticket=" + ticket;
+            await axios.get(val_url)
+                .then((response) => {
+                    console.log("ticket val data: " + JSON.stringify(response.data));
+                })
+                .catch((error) => {
 
-                // render authenticated interface with user netid
-                res.render("authenticated", {netid: netid});
-            });
+                })
+            // ticket is already stripped
+            // await cas.validate(ticket, function(err, status, netid) {
+            //     if (err) {
+            //         // error handling for invalid tickets
+            //         console.log("Error in cas validation: " + JSON.stringify(err));
+            //         res.send({error: err}).status(500);
+            //         return;
+            //     }
+            //     // add new cookie session data of ticket and netid (encrypted)
+            //     req.session.cas = {
+            //         ticket: ticket,
+            //         netid: netid
+            //     };
+
+            //     // render authenticated interface with user netid
+            //     res.render("authenticated", {netid: netid});
+            // });
         }
     }
     catch(error) {
